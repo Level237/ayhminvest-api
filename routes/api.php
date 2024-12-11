@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Payment\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post("login",[LoginController::class,"login"]);
+
+Route::middleware(['auth:api'])->prefix('v1')->group(function(){
+    Route::post('charge',[StripeController::class,'charge']);
+});
