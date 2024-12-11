@@ -18,9 +18,7 @@ class AdminSeeder extends Seeder
             'email'=>"admin@ayhminvest.com",
             'role_id'=>1,
             'password'=>bcrypt('password'),
-            'country_id'=>31,
-            'isCompany'=>0,
-            'phone_number'=>"690562832",
+            'phone_number'=>"48826243423",
         ],
         );
     }
