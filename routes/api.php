@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Payment\StripeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post("login",[LoginController::class,"login"]);
 
+Route::post("level",function(){
+return "dk";
+});
+Route::post('charge',[StripeController::class,'charge']);
 Route::middleware(['auth:api'])->prefix('v1')->group(function(){
-    Route::post('charge',[StripeController::class,'charge']);
+    Route::post('/logout',[LogoutController::class,'logout']);
 });

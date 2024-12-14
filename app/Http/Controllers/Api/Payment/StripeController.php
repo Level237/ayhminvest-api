@@ -12,13 +12,25 @@ class StripeController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $charge = Charge::create([
-            'amount' => $request->amount, // Montant en cents
-            'currency' => 'usd',
-            'source' => $request->stripeToken,
-            'description' => 'Investissement',
-        ]);
+        try{
+            $charge = Charge::create([
+                'amount' => $this->calculateRealNumber($request->amount), // Montant en cents
+                'currency' => 'eur',
+                'source' => $request->stripeToken,
+                'description' => 'Investissement',
+            ]);
 
-        return response()->json($charge);
+            return response()->json($charge);
+        }catch(\Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'errors' => $e
+              ], 500);
+        }
+    }
+
+    function calculateRealNumber($amount) {
+        return (($amount)*100);
     }
 }
