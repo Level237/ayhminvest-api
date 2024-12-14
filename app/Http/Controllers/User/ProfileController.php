@@ -10,6 +10,7 @@ class ProfileController extends Controller
 {
     public function currentUser(){
         $User=Auth::guard('api')->user();
+        $scopes = $User->token()->scopes;
         return $User;
     }
 }
